@@ -1,6 +1,8 @@
 server:
   port: 8060
   forward-headers-strategy: framework
+custom:
+  message: hello-from-github777
 
 eureka:
   client:
@@ -58,5 +60,3 @@ management:
   tracing:
     sampling:
       probability: 1.0
-custom:
-  message: hello-from-github000
