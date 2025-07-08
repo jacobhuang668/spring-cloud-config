@@ -2,7 +2,7 @@ server:
   port: 8060
   forward-headers-strategy: framework
 custom:
-  message: hello-from-github777
+  message: hello-from-github123
 
 eureka:
   client:
@@ -23,29 +23,29 @@ spring:
         webflux:
           routes:
           - id: employee-service
-            uri: lb://employee-service//
+            uri: lb://employee-service
             predicates:
             - Path=/employee/**
             filters:
-            - RewritePath=/employee/(?<path>.*), /$${path}
+            - RewritePath=/employee/(?<path>.*), /${path}
           - id: department-service
             uri: lb://department-service
             predicates:
             - Path=/department/**
             filters:
-            - RewritePath=/department/(?<path>.*), /$${path}
+            - RewritePath=/department/(?<path>.*), /${path}
           - id: organization-service
             uri: lb://organization-service
             predicates:
             - Path=/organization/**
             filters:
-            - RewritePath=/organization/(?<path>.*), /$${path}
+            - RewritePath=/organization/(?<path>.*), /${path}
           - id: openapi
             uri: http://localhost:${server.port}
             predicates:
             - Path=/v3/api-docs/**
             filters:
-            - RewritePath=/v3/api-docs/(?<path>.*), /$${path}/v3/api-docs
+            - RewritePath=/v3/api-docs/(?<path>.*), /${path}/v3/api-docs
 
 springdoc:
   cache:
