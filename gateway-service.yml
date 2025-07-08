@@ -2,7 +2,7 @@ server:
   port: 8060
   forward-headers-strategy: framework
 custom:
-  message: hello-from-github000
+  message: hello-from-github
 
 eureka:
   client:
@@ -45,7 +45,7 @@ spring:
             predicates:
             - Path=/v3/api-docs/**
             filters:
-            - RewritePath=/v3/api-docs/(?<path>.*), /\${path}/v3/api-docs
+            - RewritePath=/v3/api-docs/(?<path>.*), /v3/api-docs
 
 springdoc:
   cache:
