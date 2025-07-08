@@ -22,42 +22,57 @@ spring:
       server:
         webflux:
           routes:
-          - id: employee-service
-            uri: lb://employee-service
-            predicates:
-            - Path=/employee/**
-            filters:
-            - RewritePath=/employee/(?<path>.*), /${path}
-          - id: department-service
-            uri: lb://department-service
-            predicates:
-            - Path=/department/**
-            filters:
-            - RewritePath=/department/(?<path>.*), /${path}
-          - id: organization-service
-            uri: lb://organization-service
-            predicates:
-            - Path=/organization/**
-            filters:
-            - RewritePath=/organization/(?<path>.*), /${path}
-          - id: openapi
-            uri: http://localhost:8060
-            predicates:
-            - Path=/v3/api-docs/**
-            filters:
-            - name: RewritePath
-              args:
-                regexp: /v3/api-docs/(?<path>.*)
-                replacement: /${path}/v3/api-docs
+            - id: employee-service
+              uri: lb://employee-service
+              predicates:
+                - Path=/employee/**
+              filters:
+                - RewritePath=/employee/(?<path>.*), /${path}
+            - id: department-service
+              uri: lb://department-service
+              predicates:
+                - Path=/department/**
+              filters:
+                - RewritePath=/department/(?<path>.*), /${path}
+            - id: organization-service
+              uri: lb://organization-service
+              predicates:
+                - Path=/organization/**
+              filters:
+                - RewritePath=/organization/(?<path>.*), /${path}
+            - id: employee-openapi
+              uri: lb://employee-service
+              predicates:
+                - Path=/v3/api-docs/employee
+              filters:
+                - RewritePath=/v3/api-docs/employee, /v3/api-docs
+            - id: department-openapi
+              uri: lb://department-service
+              predicates:
+                - Path=/v3/api-docs/department
+              filters:
+                - RewritePath=/v3/api-docs/department, /v3/api-docs
+            - id: organization-openapi
+              uri: lb://organization-service
+              predicates:
+                - Path=/v3/api-docs/organization
+              filters:
+                - RewritePath=/v3/api-docs/organization, /v3/api-docs
 
 springdoc:
-  cache:
-    disabled: true
-  version: '@springdoc.version@'
   swagger-ui:
     use-root-path: true
+    urls:
+      - name: employee
+        url: /v3/api-docs/employee
+      - name: department
+        url: /v3/api-docs/department
+      - name: organization
+        url: /v3/api-docs/organization
   api-docs:
     version: openapi_3_1
+  cache:
+    disabled: true
 
 management:
   tracing:
