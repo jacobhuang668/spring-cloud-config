@@ -45,7 +45,10 @@ spring:
             predicates:
             - Path=/v3/api-docs/**
             filters:
-            - RewritePath=/v3/api-docs/(.*), /$1/v3/api-docs
+            - name: RewritePath
+              args:
+                regexp: /v3/api-docs/(?<path>.*)
+                replacement: /${path}/v3/api-docs
 
 springdoc:
   cache:
